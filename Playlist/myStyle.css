@@ -1,0 +1,24 @@
+button {
+	margin: 0;
+	padding: 10px 16px;
+	text-align: center;
+	transition: color 100ms;
+	background-color: #ea4c89;
+	border-radius: 8px;
+	border-style: none;
+	box-sizing: border-box;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 14px;
+	height: 40px;
+}
+
+button:hover,
+button:focus {
+	background-color: #f082ac;
+}
+
+h3 {
+	padding-top: 5%;
+	border-top: 3px solid black;
+}
