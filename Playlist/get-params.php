@@ -1,7 +1,5 @@
 <?php
-require 'aws.phar'
-session_start();
-
+require '../aws/aws-autoloader.php';
 
 use Aws\Ssm\SsmClient;
 use Aws\Exception\AwsException;
