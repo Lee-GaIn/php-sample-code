@@ -1,6 +1,6 @@
 <?php
 require 'aws.phar'
-session_start(); // Start session if not already started
+session_start();
 
 use Aws\Ssm\SsmClient;
 use Aws\Exception\AwsException;
