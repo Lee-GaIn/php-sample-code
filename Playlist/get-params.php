@@ -2,6 +2,7 @@
 require 'aws.phar'
 session_start();
 
+
 use Aws\Ssm\SsmClient;
 use Aws\Exception\AwsException;
 
