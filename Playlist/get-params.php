@@ -1,5 +1,5 @@
 <?php
-require '../aws/aws-autoloader.php';
+require './aws/aws-autoloader.php';
 
 use Aws\Ssm\SsmClient;
 use Aws\Exception\AwsException;
