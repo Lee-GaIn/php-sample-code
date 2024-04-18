@@ -1,23 +1,39 @@
 <?php
-  require 'aws-autoloader.php';
+require 'aws.phar'
+session_start(); // Start session if not already started
 
-  $ssm_client = new Aws\Ssm\SsmClient([
+use Aws\Ssm\SsmClient;
+use Aws\Exception\AwsException;
+
+$ssm_client = new Aws\Ssm\SsmClient([
     'region'  => 'us-west-2',
     'version' => 'latest'
-  ]);
+]);
 
-  $result = $ssm_client->GetParametersByPath(['Path' => '/MyPlaylist/']);
-  
-  foreach($result['Parameters'] as $p) {
-    if ($p['Name'] == '/MyPlaylist/endPoint') {
-      $_SESSION['endPoint'] = $p['Value'];
-    } elseif ($p['Name'] == '/MyPlaylist/userName') {
-      $_SESSION['userName'] = $p['Value'];
-    } elseif ($p['Name'] == '/MyPlaylist/pwd') {
-      $_SESSION['pwd'] = $p['Value'];
-    } elseif ($p['Name'] == '/MyPlaylist/dbName') {
-      $_SESSION['dbName'] = $p['Value'];
+try {
+    $result = $ssm_client->GetParametersByPath(['Path' => '/MyPlaylist/']);
+
+    foreach ($result['Parameters'] as $p) {
+        switch ($p['Name']) {
+            case '/MyPlaylist/endPoint':
+                $_SESSION['endPoint'] = $p['Value'];
+                break;
+            case '/MyPlaylist/userName':
+                $_SESSION['userName'] = $p['Value'];
+                break;
+            case '/MyPlaylist/pwd':
+                $_SESSION['pwd'] = $p['Value'];
+                break;
+            case '/MyPlaylist/dbName':
+                $_SESSION['dbName'] = $p['Value'];
+                break;
+            default:
+                // Handle unexpected parameter names if necessary
+                break;
+        }
     }
-      
-  }
+} catch (AwsException $e) {
+    // Handle AWS API errors
+    echo 'Error retrieving parameters: ' . $e->getMessage();
+}
 ?>
